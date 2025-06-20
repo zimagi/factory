@@ -1,0 +1,8 @@
+# Python cache files
+__pycache__
+
+# VSCode
+*.code-workspace
+
+# System files
+.zimagi*
