@@ -1,0 +1,137 @@
+_base_model: &base_model
+    base: id_resource
+    key: id
+    admin_roles: [dev-team]
+    view_roles: [dev-team]
+    priority: 100
+
+roles:
+    dev-team: "Development Team"
+
+models:
+    organization:
+        <<: *base_model
+        base: name_resource
+        key: name
+        display: "Organization: <name>"
+        fields:
+            full_name:
+                type: string
+                options:
+                    max_length: 256
+            url:
+                type: url
+
+    contributor:
+        <<: *base_model
+        display: "Contributor: <provider>: <name>"
+        id_fields: [provider, name]
+        fields:
+            provider:
+                type: string
+                options:
+                    max_length: 256
+            url:
+                type: url
+
+    repository:
+        <<: *base_model
+        base: organization
+        mixins: [contributor]
+        plural: repositories
+        display: "Repository: <organization>: <name>"
+        plugin: true
+        default_provider: github
+        id_fields: [organization, name]
+        fields:
+            external_id:
+                type: string
+                options:
+                    max_length: 128
+            description:
+                type: text
+            private:
+                type: boolean
+            url:
+                type: url
+            git_url:
+                type: url
+            remote:
+                type: string
+                options:
+                    max_length: 128
+                    default: origin
+            default_branch:
+                type: string
+                options:
+                    max_length: 256
+                    default: main
+            topics:
+                type: list
+
+    issue:
+        <<: *base_model
+        base: repository
+        data_mixins: [contributor]
+        display: "Issue: <repository>: <external_id>"
+        id_fields: [repository, external_id]
+        key: external_id
+        fields:
+            external_id:
+                type: string
+            text:
+                type: text
+            state:
+                type: string
+                options:
+                    max_length: 128
+            locked:
+                type: boolean
+            assignees:
+                type: many_to_many
+                options:
+                    related_data_name: contributor
+                    reverse_related_name: "issues"
+            url:
+                type: url
+            topics:
+                type: list
+
+    pull_request:
+        <<: *base_model
+        base: issue
+        extend: true
+        display: "Pull Request: <repository>: <external_id>"
+        id_fields: [repository, external_id]
+        key: external_id
+        fields:
+            issue_url:
+                type: url
+            base_branch:
+                type: string
+                options:
+                    max_length: 256
+            head_branch:
+                type: string
+                options:
+                    max_length: 256
+            reviewers:
+                type: many_to_many
+                options:
+                    related_data_name: contributor
+                    reverse_related_name: "pull_requests"
+
+    comment:
+        <<: *base_model
+        base: issue
+        data_mixins: [contributor]
+        id_fields: [issue, external_id]
+        key: external_id
+        display: "Comment: <repository>: <external_id>"
+        fields:
+            external_id:
+                type: string
+            text:
+                type: text
+            url:
+                type: url

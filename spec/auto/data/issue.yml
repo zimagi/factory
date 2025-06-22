@@ -1,0 +1,119 @@
+data_mixins:
+  issue:
+    class: IssueMixin
+    fields:
+      issue:
+        type: '@django.ForeignKey'
+        relation: issue
+        options:
+          on_delete: '@django.CASCADE'
+  issue_optional:
+    class: IssueOptionalMixin
+    fields:
+      issue:
+        type: '@django.ForeignKey'
+        relation: issue
+        options:
+          on_delete: '@django.SET_NULL'
+          'null': true
+  issues:
+    class: IssueMultipleMixin
+    fields:
+      issues:
+        type: '@django.ManyToManyField'
+        relation: issue
+        options:
+          blank: true
+data_base:
+  issue:
+    class: IssueBase
+    base: id_resource
+    mixins:
+    - issue
+    id_fields:
+    - issue_id
+    - name
+    meta:
+      unique_together:
+      - issue
+      - name
+      scope: issue
+data:
+  issue:
+    class: Issue
+    base: repository
+    mixins:
+    - contributor
+    id_fields:
+    - repository
+    - external_id
+    key: external_id
+    api: true
+    display: 'Issue: <repository>: <external_id>'
+    roles:
+      edit:
+      - dev-team
+      view:
+      - dev-team
+    fields:
+      external_id:
+        type: '@django.CharField'
+        options:
+          'null': true
+          default: null
+          choices: null
+          max_length: 256
+          editable: true
+          primary_key: false
+          system: false
+      text:
+        type: '@django.TextField'
+        options:
+          'null': true
+          default: null
+          editable: true
+          system: false
+      locked:
+        type: '@django.BooleanField'
+        options:
+          'null': true
+          default: null
+          editable: true
+          system: false
+      topics:
+        type: '@zimagi.ListField'
+        color: json
+        options:
+          editable: true
+          system: false
+      url:
+        type: '@django.URLField'
+        options:
+          'null': true
+          default: null
+          max_length: 256
+          editable: true
+          system: false
+      assignees:
+        type: '@django.ManyToManyField'
+        relation: contributor
+        color: relation
+        options:
+          blank: true
+          related_name: issues
+      state:
+        type: '@django.CharField'
+        options:
+          'null': true
+          default: null
+          choices: null
+          max_length: 128
+          editable: true
+          primary_key: false
+          system: false
+    meta:
+      unique_together:
+      - repository
+      - external_id
+      ordering:
+      - external_id

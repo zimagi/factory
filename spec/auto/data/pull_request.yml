@@ -1,0 +1,95 @@
+data_mixins:
+  pull_request:
+    class: PullRequestMixin
+    fields:
+      pull_request:
+        type: '@django.ForeignKey'
+        relation: pull_request
+        options:
+          on_delete: '@django.CASCADE'
+  pull_request_optional:
+    class: PullRequestOptionalMixin
+    fields:
+      pull_request:
+        type: '@django.ForeignKey'
+        relation: pull_request
+        options:
+          on_delete: '@django.SET_NULL'
+          'null': true
+  pull_requests:
+    class: PullRequestMultipleMixin
+    fields:
+      pull_requests:
+        type: '@django.ManyToManyField'
+        relation: pull_request
+        options:
+          blank: true
+data_base:
+  pull_request:
+    class: PullRequestBase
+    base: id_resource
+    mixins:
+    - pull_request
+    id_fields:
+    - pull_request_id
+    - name
+    meta:
+      unique_together:
+      - pull_request
+      - name
+      scope: pull_request
+data:
+  pull_request:
+    class: PullRequest
+    extend: issue
+    id_fields:
+    - repository
+    - external_id
+    key: external_id
+    api: true
+    display: 'Pull Request: <repository>: <external_id>'
+    roles:
+      edit:
+      - dev-team
+      view:
+      - dev-team
+    fields:
+      issue_url:
+        type: '@django.URLField'
+        options:
+          'null': true
+          default: null
+          max_length: 256
+          editable: true
+          system: false
+      base_branch:
+        type: '@django.CharField'
+        options:
+          'null': true
+          default: null
+          choices: null
+          max_length: 256
+          editable: true
+          primary_key: false
+          system: false
+      reviewers:
+        type: '@django.ManyToManyField'
+        relation: contributor
+        color: relation
+        options:
+          blank: true
+          related_name: pull_requests
+      head_branch:
+        type: '@django.CharField'
+        options:
+          'null': true
+          default: null
+          choices: null
+          max_length: 256
+          editable: true
+          primary_key: false
+          system: false
+    meta:
+      unique_together: []
+      ordering:
+      - external_id

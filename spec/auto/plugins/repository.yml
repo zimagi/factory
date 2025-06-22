@@ -1,0 +1,4 @@
+plugin:
+    repository:
+        base: data
+        data: repository

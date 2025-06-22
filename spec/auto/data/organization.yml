@@ -1,0 +1,74 @@
+data_mixins:
+  organization:
+    class: OrganizationMixin
+    fields:
+      organization:
+        type: '@django.ForeignKey'
+        relation: organization
+        options:
+          on_delete: '@django.CASCADE'
+  organization_optional:
+    class: OrganizationOptionalMixin
+    fields:
+      organization:
+        type: '@django.ForeignKey'
+        relation: organization
+        options:
+          on_delete: '@django.SET_NULL'
+          'null': true
+  organizations:
+    class: OrganizationMultipleMixin
+    fields:
+      organizations:
+        type: '@django.ManyToManyField'
+        relation: organization
+        options:
+          blank: true
+data_base:
+  organization:
+    class: OrganizationBase
+    base: id_resource
+    mixins:
+    - organization
+    id_fields:
+    - organization_id
+    - name
+    meta:
+      unique_together:
+      - organization
+      - name
+      scope: organization
+data:
+  organization:
+    class: Organization
+    base: name_resource
+    key: name
+    api: true
+    display: 'Organization: <name>'
+    roles:
+      edit:
+      - dev-team
+      view:
+      - dev-team
+    fields:
+      full_name:
+        type: '@django.CharField'
+        options:
+          'null': true
+          default: null
+          choices: null
+          max_length: 256
+          editable: true
+          primary_key: false
+          system: false
+      url:
+        type: '@django.URLField'
+        options:
+          'null': true
+          default: null
+          max_length: 256
+          editable: true
+          system: false
+    meta:
+      ordering:
+      - name
