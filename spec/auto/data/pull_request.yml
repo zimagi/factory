@@ -72,6 +72,13 @@ data:
           editable: true
           primary_key: false
           system: false
+      reviewers:
+        type: '@django.ManyToManyField'
+        relation: contributor
+        color: relation
+        options:
+          blank: true
+          related_name: pull_requests
       base_branch:
         type: '@django.CharField'
         options:
@@ -82,13 +89,6 @@ data:
           editable: true
           primary_key: false
           system: false
-      reviewers:
-        type: '@django.ManyToManyField'
-        relation: contributor
-        color: relation
-        options:
-          blank: true
-          related_name: pull_requests
     meta:
       unique_together: []
       ordering:

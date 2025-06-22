@@ -54,14 +54,6 @@ data:
       view:
       - dev-team
     fields:
-      url:
-        type: '@django.URLField'
-        options:
-          'null': true
-          default: null
-          max_length: 256
-          editable: true
-          system: false
       provider:
         type: '@django.CharField'
         options:
@@ -71,6 +63,14 @@ data:
           max_length: 256
           editable: true
           primary_key: false
+          system: false
+      url:
+        type: '@django.URLField'
+        options:
+          'null': true
+          default: null
+          max_length: 256
+          editable: true
           system: false
     meta:
       unique_together:

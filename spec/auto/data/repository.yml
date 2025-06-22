@@ -82,15 +82,22 @@ data:
           max_length: 256
           editable: true
           system: false
-      remote:
+      default_branch:
         type: '@django.CharField'
         options:
           'null': false
-          default: origin
+          default: main
           choices: null
-          max_length: 128
+          max_length: 256
           editable: true
           primary_key: false
+          system: false
+      description:
+        type: '@django.TextField'
+        options:
+          'null': true
+          default: null
+          editable: true
           system: false
       url:
         type: '@django.URLField'
@@ -106,20 +113,13 @@ data:
         options:
           editable: true
           system: false
-      description:
-        type: '@django.TextField'
-        options:
-          'null': true
-          default: null
-          editable: true
-          system: false
-      default_branch:
+      remote:
         type: '@django.CharField'
         options:
           'null': false
-          default: main
+          default: origin
           choices: null
-          max_length: 256
+          max_length: 128
           editable: true
           primary_key: false
           system: false
