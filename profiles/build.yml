@@ -1,6 +1,5 @@
 _base_model: &base_model
     base: id_resource
-    key: id
     admin_roles: [dev-team]
     view_roles: [dev-team]
     priority: 100
@@ -26,6 +25,7 @@ models:
         <<: *base_model
         display: "Contributor: <provider>: <name>"
         id_fields: [provider, name]
+        key: id
         fields:
             provider:
                 type: string
@@ -43,6 +43,7 @@ models:
         plugin: true
         default_provider: github
         id_fields: [organization, name]
+        key: name
         fields:
             external_id:
                 type: string

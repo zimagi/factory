@@ -48,7 +48,7 @@ data:
     id_fields:
     - organization
     - name
-    key: id
+    key: name
     api: true
     display: 'Repository: <organization>: <name>'
     roles:
@@ -67,6 +67,16 @@ data:
           editable: true
           primary_key: false
           system: false
+      default_branch:
+        type: '@django.CharField'
+        options:
+          'null': false
+          default: main
+          choices: null
+          max_length: 256
+          editable: true
+          primary_key: false
+          system: false
       private:
         type: '@django.BooleanField'
         options:
@@ -74,7 +84,14 @@ data:
           default: null
           editable: true
           system: false
-      url:
+      description:
+        type: '@django.TextField'
+        options:
+          'null': true
+          default: null
+          editable: true
+          system: false
+      git_url:
         type: '@django.URLField'
         options:
           'null': true
@@ -92,19 +109,12 @@ data:
           editable: true
           primary_key: false
           system: false
-      git_url:
+      url:
         type: '@django.URLField'
         options:
           'null': true
           default: null
           max_length: 256
-          editable: true
-          system: false
-      description:
-        type: '@django.TextField'
-        options:
-          'null': true
-          default: null
           editable: true
           system: false
       topics:
@@ -113,20 +123,10 @@ data:
         options:
           editable: true
           system: false
-      default_branch:
-        type: '@django.CharField'
-        options:
-          'null': false
-          default: main
-          choices: null
-          max_length: 256
-          editable: true
-          primary_key: false
-          system: false
     meta:
       provider_name: repository
       unique_together:
       - organization
       - name
       ordering:
-      - id
+      - name
