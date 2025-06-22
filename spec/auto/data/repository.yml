@@ -67,25 +67,8 @@ data:
           editable: true
           primary_key: false
           system: false
-      default_branch:
-        type: '@django.CharField'
-        options:
-          'null': false
-          default: main
-          choices: null
-          max_length: 256
-          editable: true
-          primary_key: false
-          system: false
       private:
         type: '@django.BooleanField'
-        options:
-          'null': true
-          default: null
-          editable: true
-          system: false
-      description:
-        type: '@django.TextField'
         options:
           'null': true
           default: null
@@ -122,6 +105,23 @@ data:
         color: json
         options:
           editable: true
+          system: false
+      description:
+        type: '@django.TextField'
+        options:
+          'null': true
+          default: null
+          editable: true
+          system: false
+      default_branch:
+        type: '@django.CharField'
+        options:
+          'null': false
+          default: main
+          choices: null
+          max_length: 256
+          editable: true
+          primary_key: false
           system: false
     meta:
       provider_name: repository
