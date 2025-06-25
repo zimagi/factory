@@ -49,7 +49,7 @@ data:
     - name
     key: name
     api: true
-    display: 'Repository: <organization>: <name>'
+    display: '<organization>: <name>'
     roles:
       edit:
       - dev-team
@@ -81,23 +81,6 @@ data:
           default: null
           editable: true
           system: false
-      description:
-        type: '@django.TextField'
-        options:
-          'null': true
-          default: null
-          editable: true
-          system: false
-      default_branch:
-        type: '@django.CharField'
-        options:
-          'null': false
-          default: main
-          choices: null
-          max_length: 256
-          editable: true
-          primary_key: false
-          system: false
       topics:
         type: '@zimagi.ListField'
         color: json
@@ -110,6 +93,23 @@ data:
           'null': true
           default: null
           max_length: 256
+          editable: true
+          system: false
+      default_branch:
+        type: '@django.CharField'
+        options:
+          'null': false
+          default: main
+          choices: null
+          max_length: 256
+          editable: true
+          primary_key: false
+          system: false
+      description:
+        type: '@django.TextField'
+        options:
+          'null': true
+          default: null
           editable: true
           system: false
     meta:

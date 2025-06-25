@@ -47,7 +47,7 @@ data:
     - name
     key: id
     api: true
-    display: 'Contributor: <provider>: <name>'
+    display: '<provider>: <name>'
     roles:
       edit:
       - dev-team

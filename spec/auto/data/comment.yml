@@ -49,7 +49,7 @@ data:
     - external_id
     key: external_id
     api: true
-    display: 'Comment: <repository>: <external_id>'
+    display: '<repository>: <external_id>'
     roles:
       edit:
       - dev-team
@@ -66,19 +66,19 @@ data:
           editable: true
           primary_key: false
           system: false
+      text:
+        type: '@django.TextField'
+        options:
+          'null': true
+          default: null
+          editable: true
+          system: false
       url:
         type: '@django.URLField'
         options:
           'null': true
           default: null
           max_length: 256
-          editable: true
-          system: false
-      text:
-        type: '@django.TextField'
-        options:
-          'null': true
-          default: null
           editable: true
           system: false
     meta:

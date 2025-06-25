@@ -12,7 +12,7 @@ models:
         <<: *base_model
         base: name_resource
         key: name
-        display: "Organization: <name>"
+        display: "<name>"
         fields:
             full_name:
                 type: string
@@ -23,7 +23,7 @@ models:
 
     contributor:
         <<: *base_model
-        display: "Contributor: <provider>: <name>"
+        display: "<provider>: <name>"
         id_fields: [provider, name]
         key: id
         fields:
@@ -38,7 +38,7 @@ models:
         <<: *base_model
         base: organization
         plural: repositories
-        display: "Repository: <organization>: <name>"
+        display: "<organization>: <name>"
         plugin: true
         default_provider: github
         id_fields: [organization, name]
@@ -68,7 +68,7 @@ models:
         <<: *base_model
         base: repository
         mixins: [contributor]
-        display: "Issue: <repository>: <external_id>"
+        display: "<repository>: <external_id>"
         id_fields: [repository, external_id]
         key: external_id
         fields:
@@ -96,7 +96,7 @@ models:
         <<: *base_model
         base: issue
         extend: true
-        display: "Pull Request: <repository>: <external_id>"
+        display: "<repository>: <external_id>"
         id_fields: [repository, external_id]
         key: external_id
         fields:
@@ -122,7 +122,7 @@ models:
         data_mixins: [contributor]
         id_fields: [issue, external_id]
         key: external_id
-        display: "Comment: <repository>: <external_id>"
+        display: "<repository>: <external_id>"
         fields:
             external_id:
                 type: string
