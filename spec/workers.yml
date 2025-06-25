@@ -8,6 +8,8 @@ _runtime: &runtime
     env: {}
 
 workers:
+    events:
+        <<: *runtime
     planning:
         <<: *runtime
     engineering:
