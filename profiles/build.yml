@@ -37,7 +37,6 @@ models:
     repository:
         <<: *base_model
         base: organization
-        mixins: [contributor]
         plural: repositories
         display: "Repository: <organization>: <name>"
         plugin: true
@@ -57,11 +56,6 @@ models:
                 type: url
             git_url:
                 type: url
-            remote:
-                type: string
-                options:
-                    max_length: 128
-                    default: origin
             default_branch:
                 type: string
                 options:
@@ -73,7 +67,7 @@ models:
     issue:
         <<: *base_model
         base: repository
-        data_mixins: [contributor]
+        mixins: [contributor]
         display: "Issue: <repository>: <external_id>"
         id_fields: [repository, external_id]
         key: external_id
