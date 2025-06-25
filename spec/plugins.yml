@@ -1,4 +1,18 @@
+plugin_mixins:
+  git:
+    class: GitMixin
+
 plugin:
-    repository:
-        providers:
-            github:
+  repository:
+    providers:
+      github:
+        mixins: [git]
+        option:
+          public_key:
+            type: str
+            default: null
+            help: 'Remote Git repository user public key'
+          private_key:
+            type: str
+            default: null
+            help: 'Remote Git repository user private key'

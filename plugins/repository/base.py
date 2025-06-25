@@ -8,16 +8,6 @@ from utility.filesystem import load_file, save_file
 
 
 class BaseProvider(BasePlugin("repository")):
-    def __init__(self, type, name, command, instance=None):
-        super().__init__(type, name, command, instance)
-
-    def get_remote(self, instance):
-        return "origin"
-
-    def check_dirty(self):
-        # Override in subclasses if needed
-        return False
-
     def initialize_instance(self, instance, created):
         # Override in subclasses if needed
         pass
@@ -26,8 +16,17 @@ class BaseProvider(BasePlugin("repository")):
         # Override in subclasses if needed
         pass
 
-    def repository_path(self, name, ensure=True):
-        path = os.path.join(settings.MANAGER.dev_root, name)
+    def finalize_instance(self, instance):
+        # Override in subclasses if needed
+        pass
+
+    def repository_path(self, instance, ensure=True):
+        path = os.path.join(
+            settings.MANAGER.dev_root,
+            self.command.service_id,
+            instance.organization.name,
+            instance.name,
+        )
         if ensure:
             pathlib.Path(path).mkdir(parents=True, exist_ok=True)
         return path
@@ -47,7 +46,7 @@ class BaseProvider(BasePlugin("repository")):
         if not instance:
             instance = self.check_instance("repository load file")
 
-        repository_path = self.repository_path(instance.name)
+        repository_path = self.repository_path(instance)
         path = os.path.join(repository_path, file_name)
         return load_file(path, binary)
 
@@ -61,7 +60,7 @@ class BaseProvider(BasePlugin("repository")):
         if not instance:
             instance = self.check_instance("repository save file")
 
-        repository_path = self.repository_path(instance.name)
+        repository_path = self.repository_path(instance)
         path = os.path.join(repository_path, file_name)
 
         save_file(path, content, binary)
