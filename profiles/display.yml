@@ -1,0 +1,113 @@
+config_store:
+  organization_list_fields:
+    - full_name
+    - url
+    - created
+    - updated
+  organization_display_fields:
+    - full_name
+    - url
+    - created
+    - updated
+
+  contributor_list_fields:
+    - provider
+    - url
+    - created
+    - updated
+  contributor_display_fields:
+    - provider
+    - url
+    - created
+    - updated
+
+  repository_list_fields:
+    - provider_type
+    - external_id
+    - description
+    - private
+    - url
+    - git_url
+    - default_branch
+    - topics
+    - organization
+  repository_display_fields:
+    - provider_type
+    - external_id
+    - description
+    - private
+    - url
+    - git_url
+    - default_branch
+    - topics
+    - created
+    - updated
+    - config
+    - variables
+    - organization
+
+  issue_list_fields:
+    - external_id
+    - state
+    - locked
+    - url
+    - topics
+    - repository
+    - contributor
+    - assignees
+  issue_display_fields:
+    - external_id
+    - state
+    - locked
+    - url
+    - text
+    - topics
+    - created
+    - updated
+    - repository
+    - contributor
+    - assignees
+
+  pull_request_list_fields:
+    - external_id
+    - state
+    - locked
+    - url
+    - issue_url
+    - base_branch
+    - head_branch
+    - topics
+    - repository
+    - contributor
+    - assignees
+    - reviewers
+  pull_request_display_fields:
+    - external_id
+    - state
+    - locked
+    - url
+    - issue_url
+    - base_branch
+    - head_branch
+    - text
+    - topics
+    - created
+    - updated
+    - repository
+    - contributor
+    - assignees
+    - reviewers
+
+  comment_list_fields:
+    - external_id
+    - url
+    - issue
+    - contributor
+  comment_display_fields:
+    - external_id
+    - url
+    - text
+    - created
+    - updated
+    - issue
+    - contributor
