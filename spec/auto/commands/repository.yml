@@ -7,7 +7,7 @@ command_mixins:
     repository:
         aliases: ["repository_optional"]
         class: RepositoryMixin
-        mixins: ['organization', 'contributor']
+        mixins: ['organization']
         meta:
             repository:
                 data: repository
@@ -17,7 +17,7 @@ command_mixins:
 
     repositories:
         class: RepositoryMultipleMixin
-        mixins: ['organization', 'contributor']
+        mixins: ['organization']
         meta:
             repositories:
                 data: repository

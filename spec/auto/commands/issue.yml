@@ -7,7 +7,7 @@ command_mixins:
     issue:
         aliases: ["issue_optional"]
         class: IssueMixin
-        mixins: ['repository']
+        mixins: ['repository', 'contributor']
         meta:
             issue:
                 data: issue
@@ -15,7 +15,7 @@ command_mixins:
 
     issues:
         class: IssueMultipleMixin
-        mixins: ['repository']
+        mixins: ['repository', 'contributor']
         meta:
             issues:
                 data: issue
