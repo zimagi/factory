@@ -8,6 +8,27 @@ from utility.filesystem import load_file, save_file
 
 
 class BaseProvider(BasePlugin("repository")):
+
+    def sdk(self):
+        raise NotImplementedError(
+            "Method sdk() must be implemented in repository providers"
+        )
+
+    def get_issues(self, **params):
+        raise NotImplementedError(
+            "Method get_issues(...) must be implemented in repository providers"
+        )
+
+    def get_issue(self, id):
+        raise NotImplementedError(
+            "Method get_issue(id) must be implemented in repository providers"
+        )
+
+    def get_pull_request(self, id):
+        raise NotImplementedError(
+            "Method get_pull_request(id) must be implemented in repository providers"
+        )
+
     def initialize_instance(self, instance, created):
         # Override in subclasses if needed
         pass

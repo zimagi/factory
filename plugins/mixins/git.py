@@ -10,18 +10,13 @@ class GitMixin(ProviderMixin("git")):
     def get_remote(self, instance):
         return "origin"
 
-    def get_url(self, instance):
-        raise NotImplementedError(
-            "Method get_remote must be implemented in repository providers that use the Git mixin"
-        )
-
     def git_update(self, instance):
         repository_path = self.repository_path(instance)
 
         if not Git.check(repository_path):
             return (
                 Git.clone(
-                    self.get_url(instance),
+                    instance.git_url,
                     repository_path,
                     reference=instance.default_branch,
                     **self._get_auth(instance),
@@ -45,7 +40,7 @@ class GitMixin(ProviderMixin("git")):
             self.repository_path(instance),
             reference=instance.default_branch,
             remote=self.get_remote(instance),
-            remote_url=self.get_url(instance),
+            remote_url=instance.git_url,
         )
 
     def pull(self, instance):
@@ -54,7 +49,7 @@ class GitMixin(ProviderMixin("git")):
             user=self.command.active_user,
             **self._get_auth(instance),
         )
-        repository.set_remote(self.get_remote(instance), self.get_url(instance))
+        repository.set_remote(self.get_remote(instance), instance.git_url)
         repository.pull(
             remote=self.get_remote(instance), branch=instance.default_branch
         )
@@ -78,7 +73,7 @@ class GitMixin(ProviderMixin("git")):
             user=self.command.active_user,
             **self._get_auth(instance),
         )
-        repository.set_remote(self.get_remote(instance), self.get_url(instance))
+        repository.set_remote(self.get_remote(instance), instance.git_url)
         repository.push(remote=self.get_remote(instance), branch=branch)
         return repository
 

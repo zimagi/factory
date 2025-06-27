@@ -7,4 +7,10 @@ class OrganizationFacade(ModelFacade("organization")):
 
 
 class Organization(Model("organization")):
-    pass
+
+    @property
+    def sdk(self):
+        return self.provider.sdk()
+
+    def get_repositories(self, **params):
+        return self.provider.get_repositories(**params)

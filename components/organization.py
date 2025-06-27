@@ -16,6 +16,7 @@ class ProfileComponent(profile.BaseProfileComponent):
             "organization save",
             organization_key=name,
             organization_fields=config,
+            organization_provider_name=provider,
             local=self.command.local,
         )
 

@@ -1,0 +1,4 @@
+plugin:
+    organization:
+        base: data
+        data: organization

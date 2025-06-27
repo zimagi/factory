@@ -1,0 +1,14 @@
+run:
+    github_repositories:
+       _command: "import"
+       import_names: github_repositories
+
+    github_issues:
+       _requires: [github_repositories]
+       _command: "import"
+       import_names: github_issues
+
+    github_pull_requests:
+       _requires: [github_repositories]
+       _command: "import"
+       import_names: github_pull_requests

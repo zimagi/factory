@@ -1,0 +1,76 @@
+_github_repository_import: &github_repository_import
+    source: github_repositories
+    data:
+        organization:
+            map:
+                provider_type:
+                    column: provider
+                    validators:
+                        string:
+                            empty: false
+                name:
+                    column: login
+                    validators:
+                        string:
+                            empty: false
+                full_name:
+                    column: name
+                    validators:
+                        string:
+                            empty: false
+                url:
+                    column: url
+                    validators:
+                        string:
+                            empty: false
+        repository:
+            requires: [organization]
+            relations:
+                organization_id:
+                    data: organization
+                    column: organization
+                    required: true
+            map:
+                provider_type:
+                    column: provider
+                    validators:
+                        string:
+                            empty: false
+                name:
+                    column: name
+                    validators:
+                        string:
+                            empty: false
+                external_id:
+                    column: external_id
+                    validators:
+                        number:
+                description:
+                    column: description
+                    validators:
+                        string:
+                            empty: false
+                private:
+                    column: private
+                url:
+                    column: url
+                    validators:
+                        string:
+                            empty: false
+                git_url:
+                    column: git_url
+                    validators:
+                        string:
+                            empty: false
+                default_branch:
+                    column: default_branch
+                    validators:
+                        string:
+                            empty: false
+                topics:
+                    column: topics
+
+import:
+    github_repositories:
+        <<: *github_repository_import
+        tags: [repositories, repository, github]

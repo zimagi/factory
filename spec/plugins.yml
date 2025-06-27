@@ -2,11 +2,22 @@ plugin_mixins:
   git:
     class: GitMixin
 
+  github:
+    class: GithubMixin
+
+  github_source:
+    class: GithubSourceMixin
+
 plugin:
+  organization:
+    providers:
+      github:
+        mixins: [github]
+
   repository:
     providers:
       github:
-        mixins: [git]
+        mixins: [github, git]
         option:
           public_key:
             type: str
@@ -16,3 +27,19 @@ plugin:
             type: str
             default: null
             help: 'Remote Git repository user private key'
+
+  issue:
+    providers:
+      github:
+        mixins: [github]
+
+  source:
+    providers:
+      github_repositories:
+        mixins: [github_source]
+      github_issues:
+        mixins: [github_source]
+      github_pull_requests:
+        mixins: [github_source]
+      github_comments:
+        mixins: [github_source]

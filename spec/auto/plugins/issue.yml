@@ -1,0 +1,4 @@
+plugin:
+    issue:
+        base: data
+        data: issue

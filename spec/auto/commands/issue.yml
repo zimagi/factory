@@ -12,6 +12,8 @@ command_mixins:
             issue:
                 data: issue
                 relations: true
+                provider: true
+                default: github
 
     issues:
         class: IssueMultipleMixin
@@ -20,6 +22,8 @@ command_mixins:
             issues:
                 data: issue
                 relations: true
+                provider: true
+                default: github
 
 #
 # Define data related base command

@@ -42,6 +42,8 @@ data:
   organization:
     class: Organization
     base: name_resource
+    mixins:
+    - provider
     key: name
     api: true
     display: <name>
@@ -70,5 +72,6 @@ data:
           editable: true
           system: false
     meta:
+      provider_name: organization
       ordering:
       - name

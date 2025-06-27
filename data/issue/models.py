@@ -7,4 +7,10 @@ class IssueFacade(ModelFacade("issue")):
 
 
 class Issue(Model("issue")):
-    pass
+
+    @property
+    def sdk(self):
+        return self.provider.sdk()
+
+    def get_comments(self, **params):
+        return self.provider.get_comments(**params)

@@ -1,0 +1,9 @@
+config:
+    provider: github
+    org: zimagi
+    names: []
+
+organization:
+    "@org":
+        provider: "@provider"
+        repositories: "#csv(@names)"

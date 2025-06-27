@@ -1,0 +1,105 @@
+_github_pull_request_import: &github_pull_request_import
+    source: github_pull_requests
+    data:
+        contributor:
+            map:
+                id:
+                    column: id
+                    validators:
+                        string:
+                            empty: false
+                name:
+                    column: login
+                    validators:
+                        string:
+                            empty: false
+                provider:
+                    column: provider
+                    validators:
+                        string:
+                            empty: false
+                url:
+                    column: url
+                    validators:
+                        string:
+                            empty: false
+        pull_request:
+            requires: [contributor]
+            relations:
+                repository_id:
+                    data: repository
+                    column: repository
+                    required: true
+                    scope:
+                        organization_id:
+                            data: organization
+                            column: organization
+                            required: true
+                contributor_id:
+                    data: contributor
+                    column: user
+                    required: true
+                assignees:
+                    data: contributor
+                    column: assignees
+                    required: false
+                    multiple: true
+                reviewers:
+                    data: contributor
+                    column: requested_reviewers
+                    required: false
+                    multiple: true
+            map:
+                provider_type:
+                    column: provider
+                    validators:
+                        string:
+                            empty: false
+                external_id:
+                    column: external_id
+                    validators:
+                        number:
+                name:
+                    column: title
+                    validators:
+                        string:
+                            empty: false
+                text:
+                    column: body
+                    validators:
+                        string:
+                            empty: false
+                state:
+                    column: state
+                    validators:
+                        string:
+                            empty: false
+                locked:
+                    column: locked
+                url:
+                    column: url
+                    validators:
+                        string:
+                            empty: false
+                labels:
+                    column: labels
+                issue_url:
+                    column: issue_url
+                    validators:
+                        string:
+                            empty: false
+                base_branch:
+                    column: base
+                    validators:
+                        string:
+                            empty: false
+                head_branch:
+                    column: head
+                    validators:
+                        string:
+                            empty: false
+
+import:
+    github_pull_requests:
+        <<: *github_pull_request_import
+        tags: [pull_requests, pull_request, github]
