@@ -59,6 +59,10 @@ _github_pull_request_import: &github_pull_request_import
                     column: external_id
                     validators:
                         number:
+                number:
+                    column: number
+                    validators:
+                        number:
                 name:
                     column: title
                     validators:

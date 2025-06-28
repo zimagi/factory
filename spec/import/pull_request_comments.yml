@@ -1,0 +1,63 @@
+_github_pull_request_comment_import: &github_pull_request_comment_import
+    source: github_pull_request_comments
+    data:
+        contributor:
+            map:
+                id:
+                    column: id
+                    validators:
+                        string:
+                            empty: false
+                name:
+                    column: login
+                    validators:
+                        string:
+                            empty: false
+                provider:
+                    column: provider
+                    validators:
+                        string:
+                            empty: false
+                url:
+                    column: url
+                    validators:
+                        string:
+                            empty: false
+        pull_request_comment:
+            requires: [contributor]
+            relations:
+                issue_id:
+                    data: issue
+                    key_field: id
+                    column: issue
+                    required: true
+                contributor_id:
+                    data: contributor
+                    column: user
+                    required: true
+            map:
+                external_id:
+                    column: external_id
+                    validators:
+                        number:
+                text:
+                    column: body
+                    validators:
+                        string:
+                            empty: false
+                url:
+                    column: url
+                    validators:
+                        string:
+                            empty: false
+                path:
+                    column: path
+                line:
+                    column: line
+                position:
+                    column: position
+
+import:
+    github_pull_request_comments:
+        <<: *github_pull_request_comment_import
+        tags: [comments, comment, github]

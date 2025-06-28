@@ -74,28 +74,12 @@ data:
           default: null
           editable: true
           system: false
-      url:
-        type: '@django.URLField'
-        options:
-          'null': true
-          default: null
-          max_length: 256
-          editable: true
-          system: false
       locked:
         type: '@django.BooleanField'
         options:
           'null': true
           default: null
           editable: true
-          system: false
-      number:
-        type: '@django.IntegerField'
-        options:
-          'null': true
-          default: null
-          editable: true
-          primary_key: false
           system: false
       assignees:
         type: '@django.ManyToManyField'
@@ -118,6 +102,22 @@ data:
         type: '@zimagi.ListField'
         color: json
         options:
+          editable: true
+          system: false
+      number:
+        type: '@django.IntegerField'
+        options:
+          'null': true
+          default: null
+          editable: true
+          primary_key: false
+          system: false
+      url:
+        type: '@django.URLField'
+        options:
+          'null': true
+          default: null
+          max_length: 256
           editable: true
           system: false
     meta:

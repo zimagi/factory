@@ -4,9 +4,7 @@ from systems.plugins.index import BaseProvider
 class Provider(BaseProvider("source", "github_repositories")):
 
     def load_items(self, context):
-        facade = self.command.facade("repository")
-
-        for repository in self.command.load(facade.all()):
+        for repository in self.command.facade("repository").all():
             if repository.provider_type == "github":
                 yield repository.sdk
 

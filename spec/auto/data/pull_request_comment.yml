@@ -1,49 +1,47 @@
 data_mixins:
-  comment:
-    class: CommentMixin
+  pull_request_comment:
+    class: PullRequestCommentMixin
     fields:
-      comment:
+      pull_request_comment:
         type: '@django.ForeignKey'
-        relation: comment
+        relation: pull_request_comment
         options:
           on_delete: '@django.CASCADE'
-  comment_optional:
-    class: CommentOptionalMixin
+  pull_request_comment_optional:
+    class: PullRequestCommentOptionalMixin
     fields:
-      comment:
+      pull_request_comment:
         type: '@django.ForeignKey'
-        relation: comment
+        relation: pull_request_comment
         options:
           on_delete: '@django.SET_NULL'
           'null': true
-  comments:
-    class: CommentMultipleMixin
+  pull_request_comments:
+    class: PullRequestCommentMultipleMixin
     fields:
-      comments:
+      pull_request_comments:
         type: '@django.ManyToManyField'
-        relation: comment
+        relation: pull_request_comment
         options:
           blank: true
 data_base:
-  comment:
-    class: CommentBase
+  pull_request_comment:
+    class: PullRequestCommentBase
     base: id_resource
     mixins:
-    - comment
+    - pull_request_comment
     id_fields:
-    - comment_id
+    - pull_request_comment_id
     - name
     meta:
       unique_together:
-      - comment
+      - pull_request_comment
       - name
-      scope: comment
+      scope: pull_request_comment
 data:
-  comment:
-    class: Comment
-    base: issue
-    mixins:
-    - contributor
+  pull_request_comment:
+    class: PullRequestComment
+    extend: comment
     id_fields:
     - issue
     - external_id
@@ -56,35 +54,33 @@ data:
       view:
       - dev-team
     fields:
-      name: null
-      text:
-        type: '@django.TextField'
-        options:
-          'null': true
-          default: null
-          editable: true
-          system: false
-      url:
-        type: '@django.URLField'
-        options:
-          'null': true
-          default: null
-          max_length: 256
-          editable: true
-          system: false
-      external_id:
+      path:
         type: '@django.CharField'
         options:
           'null': true
           default: null
           choices: null
-          max_length: 256
+          max_length: 512
+          editable: true
+          primary_key: false
+          system: false
+      line:
+        type: '@django.IntegerField'
+        options:
+          'null': true
+          default: null
+          editable: true
+          primary_key: false
+          system: false
+      position:
+        type: '@django.IntegerField'
+        options:
+          'null': true
+          default: null
           editable: true
           primary_key: false
           system: false
     meta:
-      unique_together:
-      - issue
-      - external_id
+      unique_together: []
       ordering:
       - external_id

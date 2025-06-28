@@ -4,12 +4,11 @@ from systems.plugins.index import BaseProvider
 class Provider(BaseProvider("source", "github_issues")):
 
     def load_items(self, context):
-        facade = self.command.facade("repository")
         state_key = "github_issues"
         check_time = self.command.get_state(state_key, None)
         current_time = self.command.time.now_string
 
-        for repository in self.command.load(facade.all()):
+        for repository in self.command.facade("repository").all():
             if repository.provider_type == "github":
                 params = {}
                 if check_time:

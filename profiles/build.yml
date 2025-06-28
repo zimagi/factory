@@ -98,6 +98,22 @@ models:
             labels:
                 type: list
 
+    comment:
+        <<: *base_model
+        base: issue
+        data_mixins: [contributor]
+        id_fields: [issue, external_id]
+        key: external_id
+        display: "<issue_id>:<external_id>"
+        name_field: false
+        fields:
+            external_id:
+                type: string
+            text:
+                type: text
+            url:
+                type: url
+
     pull_request:
         <<: *base_model
         base: issue
@@ -122,17 +138,19 @@ models:
                     related_data_name: contributor
                     reverse_related_name: "pull_requests"
 
-    comment:
+    pull_request_comment:
         <<: *base_model
-        base: issue
-        data_mixins: [contributor]
+        base: comment
+        extend: true
+        display: "<issue_id>:<external_id>"
         id_fields: [issue, external_id]
         key: external_id
-        display: "<repository_id>:<external_id>"
         fields:
-            external_id:
+            path:
                 type: string
-            text:
-                type: text
-            url:
-                type: url
+                options:
+                    max_length: 512
+            line:
+                type: integer
+            position:
+                type: integer

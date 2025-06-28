@@ -1,0 +1,57 @@
+_github_comment_import: &github_comment_import
+    source: github_comments
+    data:
+        contributor:
+            map:
+                id:
+                    column: id
+                    validators:
+                        string:
+                            empty: false
+                name:
+                    column: login
+                    validators:
+                        string:
+                            empty: false
+                provider:
+                    column: provider
+                    validators:
+                        string:
+                            empty: false
+                url:
+                    column: url
+                    validators:
+                        string:
+                            empty: false
+        comment:
+            requires: [contributor]
+            relations:
+                issue_id:
+                    data: issue
+                    key_field: id
+                    column: issue
+                    required: true
+                contributor_id:
+                    data: contributor
+                    column: user
+                    required: true
+            map:
+                external_id:
+                    column: external_id
+                    validators:
+                        number:
+                text:
+                    column: body
+                    validators:
+                        string:
+                            empty: false
+                url:
+                    column: url
+                    validators:
+                        string:
+                            empty: false
+
+import:
+    github_comments:
+        <<: *github_comment_import
+        tags: [comments, comment, github]

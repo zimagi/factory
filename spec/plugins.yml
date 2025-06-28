@@ -43,3 +43,5 @@ plugin:
         mixins: [github_source]
       github_comments:
         mixins: [github_source]
+      github_pull_request_comments:
+        mixins: [github_source]
