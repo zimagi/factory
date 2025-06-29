@@ -216,6 +216,9 @@ class GithubSourceMixin(ProviderMixin("github_source")):
             "organization": model.repository.organization.login,  # str
             "repository": model.repository.name,  # str
             "external_id": model.id,  # int
+            "type": (
+                model.raw_data["type"]["name"] if "type" in model.raw_data else None
+            ),  # str
             "title": model.title,  # str
             "assignee": (
                 self.github_users[model.assignee.login].id if model.assignee else None

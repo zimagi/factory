@@ -80,6 +80,10 @@ models:
                 type: string
             number:
                 type: integer
+            type:
+                type: string
+                options:
+                    max_length: 256
             text:
                 type: text
             state:

@@ -63,6 +63,11 @@ _github_pull_request_import: &github_pull_request_import
                     column: number
                     validators:
                         number:
+                type:
+                    column: type
+                    validators:
+                        string:
+                            empty: false
                 name:
                     column: title
                     validators:

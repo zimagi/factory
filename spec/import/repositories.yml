@@ -47,9 +47,6 @@ _github_repository_import: &github_repository_import
                         number:
                 description:
                     column: description
-                    validators:
-                        string:
-                            empty: false
                 private:
                     column: private
                 url:
