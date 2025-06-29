@@ -1,5 +1,65 @@
-command_mixins: {}
+command_mixins:
+    issue:
+        parameters:
+            github_issue_id:
+                parser: variable
+                type: str
+                optional: false
+                help: "GitHub Issue ID"
+                value_label: ISSUE
+                tags: [mcp, issue]
+    user_dialog:
+        mixins: [issue]
+        class: UserDialogCommandMixin
+        parameters:
+            dialog_message:
+                parser: variable
+                type: str
+                optional: false
+                help: "Message to create on issue"
+                value_label: MESSAGE
+                tags: [mcp, dialog]
 
-command_base: {}
+    ai_task:
+        mixins: [issue]
+        class: AITaskCommandMixin
+        parameters:
+            llm_prompt:
+                parser: variable
+                type: str
+                optional: false
+                help: "Prompt that directs the Aider generation process"
+                value_label: MESSAGE
+                tags: [mcp, task]
 
-command: {}
+command_base:
+    dialog:
+        mixins: [user_dialog]
+        server_enabled: true
+        mcp_enabled: true
+        groups_allowed: [dev-team]
+        priority: 80
+        parse:
+            - github_issue_id
+            - dialog_message
+
+    project:
+        mixins: [ai_task]
+        server_enabled: true
+        mcp_enabled: true
+        groups_allowed: [dev-team]
+        priority: 85
+        parse:
+            - github_issue_id
+            - llm_prompt
+
+command:
+    dialog:
+        issue_comment:
+            base: dialog
+        pull_request_comment:
+            base: dialog
+
+    project:
+        generate_spec:
+            base: project
