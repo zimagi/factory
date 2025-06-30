@@ -1,0 +1,14 @@
+dialog:
+    issue_comment:
+        overview: |-
+            This is an overview comment
+
+        description: |-
+            This is a more detailed description
+
+    pull_request_comment:
+        overview: |-
+            This is an overview comment
+
+        description: |-
+            This is a more detailed description

@@ -1,0 +1,7 @@
+project:
+    generate_spec:
+        overview: |-
+            This is an overview comment
+
+        description: |-
+            This is a more detailed description
