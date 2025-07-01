@@ -1,5 +1,9 @@
 # System Instructions
 
+## Objective
+
+<{goal}>
+
 ## Request Received
 
 This is a message we just received that needs to be acted upon.
@@ -9,7 +13,13 @@ This is a message we just received that needs to be acted upon.
 
 - <{field}>:
   <{value}>
-  #%- else %#
+
+#%- else %#
+
 - <{field}>: <{value}>
-  #%- endif %#
-  #%- endfor %#
+
+#%- endif %#
+#%- endfor %#
+
+Once you have completed running any actions or calling available tools
+needed then wrap up by summarizing the findings or results.
