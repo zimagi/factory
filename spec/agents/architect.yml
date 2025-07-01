@@ -1,71 +1,73 @@
 _architect_specs: &architect_specs
-    channel: architect
-    sensor_key: architect
+  channel: architect
+  sensor_key: architect
 
-    template: architect
-    model_provider: openrouter
-    model_options:
-        model: deepseek-r1
+  template: architect
+  model_provider: openrouter
+  model_options:
+    model: deepseek-r1
 
 command:
-    agent:
-        architect:
-            kickstart:
-                base: cell
-                options:
-                    <<: *architect_specs
+  agent:
+    architect:
+      kickstart:
+        base: cell
+        options:
+          <<: *architect_specs
 
-                    goal: |-
-                        This is a AI goal that needs to be flushed out in a minute.
-                    rules: |-
-                        These are some rules to follow (more to come in a minute).
+          goal: |-
+            This is a AI goal that needs to be flushed out in a minute.
+          rules: |-
+            These are some rules to follow (more to come in a minute).
 
-                    sensor: data:save:issue
-                    message_fields: [type, text, state, labels, repository__name]
-                    sensor_filters:
-                        type: Feature
-                        state: open
+          sensor: data:save:issue
+          message_fields: [type, text, state, labels, repository__name]
+          sensor_filters:
+            type: Feature
+            state: open
 
-                    tools:
-                        - dialog:issue_comment@local
-                        - project:generate_spec@local
+          tools:
+            - dialog:issue_comment@local
+            - project:generate_spec@local
 
-            strategize:
-                base: cell
-                options:
-                    <<: *architect_specs
+      strategize:
+        base: cell
+        options:
+          <<: *architect_specs
 
-                    goal: |-
-                        This is a AI goal that needs to be flushed out in a minute.
-                    rules: |-
-                        These are some rules to follow (more to come in a minute).
+          goal: |-
+            This is a AI goal that needs to be flushed out in a minute.
+          rules: |-
+            These are some rules to follow (more to come in a minute).
 
-                    sensor: data:save:issue_comment
-                    message_fields: [text, issue__id, issue__type, issue__state, issue__labels]
-                    sensor_filters:
-                        issue__type: Feature
-                        issue__state: open
+          sensor: data:save:issue_comment
+          message_fields:
+            [text, issue__id, issue__type, issue__state, issue__labels]
+          sensor_filters:
+            issue__type: Feature
+            issue__state: open
 
-                    tools:
-                        - dialog:issue_comment@local
-                        - project:generate_spec@local
+          tools:
+            - dialog:issue_comment@local
+            - project:generate_spec@local
 
-            refine:
-                base: cell
-                options:
-                    <<: *architect_specs
+      refine:
+        base: cell
+        options:
+          <<: *architect_specs
 
-                    goal: |-
-                        This is a AI goal that needs to be flushed out in a minute.
-                    rules: |-
-                        These are some rules to follow (more to come in a minute).
+          goal: |-
+            This is a AI goal that needs to be flushed out in a minute.
+          rules: |-
+            These are some rules to follow (more to come in a minute).
 
-                    sensor: data:save:pull_request_comment
-                    message_fields: [text, issue__id, issue__type, issue__state, issue__labels]
-                    sensor_filters:
-                        issue__type: Feature
-                        issue__state: open
+          sensor: data:save:pull_request_comment
+          message_fields:
+            [text, issue__id, issue__type, issue__state, issue__labels]
+          sensor_filters:
+            issue__type: Feature
+            issue__state: open
 
-                    tools:
-                        - dialog:pull_request_comment@local
-                        - project:generate_spec@local
+          tools:
+            - dialog:pull_request_comment@local
+            - project:generate_spec@local
