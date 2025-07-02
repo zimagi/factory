@@ -54,13 +54,25 @@ data:
       view:
       - dev-team
     fields:
-      issue_url:
-        type: '@django.URLField'
+      issue:
+        type: '@django.ForeignKey'
+        relation: issue
+        color: relation
+        options:
+          'null': true
+          on_delete: '@django.SET_NULL'
+          editable: true
+          system: false
+          related_name: pull_requests
+      base_branch:
+        type: '@django.CharField'
         options:
           'null': true
           default: null
+          choices: null
           max_length: 256
           editable: true
+          primary_key: false
           system: false
       head_branch:
         type: '@django.CharField'
@@ -72,15 +84,13 @@ data:
           editable: true
           primary_key: false
           system: false
-      base_branch:
-        type: '@django.CharField'
+      issue_url:
+        type: '@django.URLField'
         options:
           'null': true
           default: null
-          choices: null
           max_length: 256
           editable: true
-          primary_key: false
           system: false
       reviewers:
         type: '@django.ManyToManyField'

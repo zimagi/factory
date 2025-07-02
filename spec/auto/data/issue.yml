@@ -84,17 +84,11 @@ data:
           default: null
           editable: true
           system: false
-      assignees:
-        type: '@django.ManyToManyField'
-        relation: contributor
-        color: relation
+      locked:
+        type: '@django.BooleanField'
         options:
-          blank: true
-          related_name: issues
-      labels:
-        type: '@zimagi.ListField'
-        color: json
-        options:
+          'null': true
+          default: null
           editable: true
           system: false
       number:
@@ -104,6 +98,12 @@ data:
           default: null
           editable: true
           primary_key: false
+          system: false
+      labels:
+        type: '@zimagi.ListField'
+        color: json
+        options:
+          editable: true
           system: false
       url:
         type: '@django.URLField'
@@ -123,13 +123,13 @@ data:
           editable: true
           primary_key: false
           system: false
-      locked:
-        type: '@django.BooleanField'
+      assignees:
+        type: '@django.ManyToManyField'
+        relation: contributor
+        color: relation
         options:
-          'null': true
-          default: null
-          editable: true
-          system: false
+          blank: true
+          related_name: issues
     meta:
       provider_name: issue
       unique_together:

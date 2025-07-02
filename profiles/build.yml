@@ -126,6 +126,11 @@ models:
     id_fields: [repository, external_id]
     key: external_id
     fields:
+      issue:
+        type: foreign_key
+        options:
+          related_data_name: issue
+          reverse_related_name: 'pull_requests'
       issue_url:
         type: url
       base_branch:
