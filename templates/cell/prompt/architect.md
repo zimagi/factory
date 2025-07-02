@@ -1,23 +1,19 @@
-# System Instructions
+# Architecture Task
 
-## Objective
+## Goals
 
 <{goal}>
 
 ## Request Received
 
-This is a message we just received that needs to be acted upon.
+#% for field, value in message.items() %#
+#%- if value is string and '\n' in value %#
+<{field_labels.get(field, field)}>:
 
-#%- for field, value in message.items() %#
-#% if '\n' in value %#
+<{value | indent(2, true)}>
 
-- <{field}>:
-  <{value}>
-
-#%- else %#
-
-- <{field}>: <{value}>
-
+#% else %#
+<{field_labels.get(field, field)}>: <{comma_separated_value(value)}>
 #%- endif %#
 #%- endfor %#
 
