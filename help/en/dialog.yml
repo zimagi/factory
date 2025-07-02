@@ -1,14 +1,22 @@
 dialog:
-    issue_comment:
-        overview: |-
-            This is an overview comment
+  issue_comment:
+    overview: |-
+      Add a new comment to an existing GitHub issue
 
-        description: |-
-            This is a more detailed description
+    description: |-
+      Use this command to create a comment on a GitHub issue identified by <github_issue_id>,
+      with the content provided in <dialog_message>. This allows AI models to participate in
+      ongoing conversations, ask follow-up questions, suggest refinements, or provide status
+      updates.  It's especially useful for collaborating with architects to strategize, clarify
+      goals, or refine project ideas based on a feature or bug issue thread.
 
-    pull_request_comment:
-        overview: |-
-            This is an overview comment
+  pull_request_comment:
+    overview: |-
+      Add a new comment to an existing GitHub pull request
 
-        description: |-
-            This is a more detailed description
+    description: |-
+      Use this command to post a comment on a GitHub pull request identified by <github_issue_id>,
+      containing the specified <dialog_message>. This enables AI models to collaborate effectively
+      with users and other agents by providing feedback, asking for clarification, or suggesting
+      improvements. It is especially useful for refining or correcting contributions during architectural,
+      planning, engineering, or support phases of a repository project.

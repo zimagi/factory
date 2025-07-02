@@ -1,7 +1,12 @@
 project:
-    generate_spec:
-        overview: |-
-            This is an overview comment
+  generate_spec:
+    overview: |-
+      Create or update an architectural specification draft on a GitHub pull request using Aider
 
-        description: |-
-            This is a more detailed description
+    description: |-
+      Use this command to instruct the Aider AI coding assistant to generate or refine a project's
+      architectural specification on an existing pull request linked to the given <github_issue_id>.
+      The <llm_prompt> should clearly describe the architectural goals, requirements, or changes needed.
+      This command enables AI models to actively contribute to the Architecture phase by evolving
+      specifications over time, responding to feedback, clarifying design decisions, and ensuring the pull
+      request reflects a complete and usable foundation for planning and implementation.
