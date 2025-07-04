@@ -35,7 +35,6 @@ command_mixins:
 command_base:
   dialog:
     mixins: [user_dialog]
-    server_enabled: true
     mcp_enabled: true
     groups_allowed: [dev-team]
     priority: 80
@@ -45,7 +44,6 @@ command_base:
 
   project:
     mixins: [ai_task]
-    server_enabled: true
     mcp_enabled: true
     groups_allowed: [dev-team]
     priority: 85
