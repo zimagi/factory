@@ -1,10 +1,11 @@
 _architect_specs: &architect_specs
-  channel: architect
-  sensor_key: architect
+  agent_user: architect
+  agent_chat_key: architect
+  agent_channel: architect
 
-  template: architect
-  model_provider: litellm
-  model_options:
+  agent_request_template: architect
+  agent_model_provider: litellm
+  agent_model_options:
     model: openrouter/deepseek/deepseek-r1
 
 command:
@@ -15,7 +16,7 @@ command:
         options:
           <<: *architect_specs
 
-          goal: |-
+          agent_goal: |-
             You are assisting an **architect** in kickstarting a new software project based on a **feature** or **bug** issue received via GitHub. This is the first stage of a structured development pipeline:
 
             **Architecture → Planning → Engineering → Support**
@@ -44,7 +45,7 @@ command:
               - Recommending code reuse from existing libraries or utilities.
               - Helping the architect scaffold a minimal working project structure in the repository.
 
-          rules: |-
+          agent_rules: |-
             Follow these principles when assisting the architect:
 
             1. **Start by reviewing the GitHub feature/bug issue or summary**. Ask clarifying questions if scope or goals are unclear.
@@ -70,34 +71,35 @@ command:
               - Revise based on comments to the architecture PR or issue thread.
               - Maintain clarity and alignment with downstream development goals.
 
-          sensor: data:save:issue
-          sensor_filters:
+          agent_sensor: data:save:issue
+          agent_sensor_filters:
             type__in: [Feature, Bug]
             state: open
 
-          message_fields: [id, type, text, labels]
-          message_field_labels:
+          agent_memory_search_field: text
+          agent_message_fields: [id, type, text, labels]
+          agent_message_field_labels:
             id: 'GitHub Issue ID'
             type: 'Issue Type'
             text: 'Issue Comment'
             labels: 'Issue Labels'
 
-          tools:
+          agent_tools:
             - dialog:issue_comment@local
             - project:generate_spec@local
 
-          channel_field_map:
-            id: id
-            type: type
-            text: text
-            labels: labels
+          agent_channel_field_map:
+            id: message__id
+            type: message__type
+            labels: message__labels
+            text: response__text
 
       strategize:
         base: cell
         options:
           <<: *architect_specs
 
-          goal: |-
+          agent_goal: |-
             You are assisting an **architect** in strategizing and refining a project in response to a **new comment** on a GitHub issue of type **feature** or **bug**. This comment may introduce new details, alter scope, or ask questions about a project concept.
 
             Your role is to help the architect update and clarify the project's architecture so that it aligns with the latest feedback, maintains internal consistency, and sets a solid foundation for planning and implementation.
@@ -128,7 +130,7 @@ command:
               - Preemptively resolving design questions that the planner or engineer may ask.
               - Promoting modularity, reusability, and easy testing.
 
-          rules: |-
+          agent_rules: |-
             Follow these principles when responding:
 
             1. **Always analyze the new comment**:
@@ -159,34 +161,35 @@ command:
               - Treat this as an ongoing design dialogue.
               - Help the architect document and resolve feedback efficiently so Planning can begin on a solid foundation.
 
-          sensor: data:save:issue_comment
-          sensor_filters:
+          agent_sensor: data:save:issue_comment
+          agent_sensor_filters:
             issue__type__in: [Feature, Bug]
             issue__state: open
 
-          message_fields: [text, issue__id, issue__type, issue__labels]
-          message_field_labels:
+          agent_memory_search_field: text
+          agent_message_fields: [text, issue__id, issue__type, issue__labels]
+          agent_message_field_labels:
             issue__id: 'GitHub Issue ID'
             issue__type: 'Issue Type'
             issue__labels: 'Issue Labels'
             text: 'Issue Comment'
 
-          tools:
+          agent_tools:
             - dialog:issue_comment@local
             - project:generate_spec@local
 
-          channel_field_map:
-            id: issue__id
-            type: issue__type
-            text: text
-            labels: issue__labels
+          agent_channel_field_map:
+            id: message__issue__id
+            type: message__issue__type
+            labels: message__issue__labels
+            text: response__text
 
       refine:
         base: cell
         options:
           <<: *architect_specs
 
-          goal: |-
+          agent_goal: |-
             You are assisting an **architect** in refining a project based on a **new comment** received on a GitHub pull request (PR) labeled `architecture`. This PR contains the project's architectural specification and is intended to kickstart the Planning phase once merged.
 
             The architect has already:
@@ -220,7 +223,7 @@ command:
               - Build trust with human reviewers and maintain project momentum.
               - Ensure the merged pull request reflects the most accurate architectural foundation.
 
-          rules: |-
+          agent_rules: |-
             Use these guiding principles:
 
             1. **Interpret the comment's intent precisely**:
@@ -251,23 +254,31 @@ command:
               - Help the architect verify that all feedback is addressed.
               - Confirm that the pull request reflects a clear, complete, and testable architecture.
 
-          sensor: data:save:pull_request_comment
-          sensor_filters:
+          agent_sensor: data:save:pull_request_comment
+          agent_sensor_filters:
             pull_request__labels__contains: architecture
             pull_request__state: open
 
-          message_fields: [text, pull_request__id, pull_request__labels]
-          message_field_labels:
-            pull_request__id: 'GitHub Issue ID'
-            pull_request__labels: 'Issue Labels'
+          agent_memory_search_field: text
+          agent_message_fields:
+            [
+              text,
+              pull_request__issue__id,
+              pull_request__id,
+              pull_request__labels,
+            ]
+          agent_message_field_labels:
+            pull_request__issue__id: 'GitHub Parent Issue ID'
+            pull_request__id: 'GitHub Pull Request ID'
+            pull_request__labels: 'GitHub Pull Request Labels'
             text: 'Pull Request Comment'
 
-          tools:
+          agent_tools:
             - dialog:pull_request_comment@local
             - project:generate_spec@local
 
-          channel_field_map:
-            id: issue__id
-            type: issue__type
-            text: text
-            labels: issue__labels
+          agent_channel_field_map:
+            id: message__pull_request__id
+            type: message__pull_request__issue__id
+            labels: message__pull_request__labels
+            text: response__text

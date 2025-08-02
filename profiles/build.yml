@@ -5,7 +5,11 @@ _base_model: &base_model
   priority: 100
 
 roles:
-  dev-team: 'Development Team'
+  dev-team: 'Development Team (shared access to development resources)'
+  architect: 'Architect (create and manage project specifications and tests)'
+  planner: 'Planner (create and manage project plan and todo lists)'
+  engineer: 'Engineer (create and manage project implementation)'
+  support: 'Support (create and manage project documentation and support tickets)'
 
 models:
   organization:

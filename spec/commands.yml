@@ -61,3 +61,4 @@ command:
   project:
     generate_spec:
       base: project
+      groups_allowed: [architect]

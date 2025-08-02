@@ -1,2 +1,6 @@
 roles:
-  dev-team: Development team
+  dev-team: Development team (shared access to development resources)
+  planner: Planner (create and manage project plan and todo lists)
+  support: Support (create and manage project documentation and support tickets)
+  engineer: Engineer (create and manage project implementation)
+  architect: Architect (create and manage project specifications and tests)

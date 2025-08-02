@@ -1,0 +1,9 @@
+users:
+  architect:
+    groups: [ai-user, dev-team, architect]
+  planner:
+    groups: [ai-user, dev-team, planner]
+  engineer:
+    groups: [ai-user, dev-team, engineer]
+  support:
+    groups: [ai-user, dev-team, support]
